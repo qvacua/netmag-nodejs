@@ -1,0 +1,44 @@
+#!/usr/bin/env node
+
+// Example usage
+// $ ./transform_csv before.csv
+
+var fs = require("fs");
+var csv = require("csv");
+
+var lineCount = 0;
+fs.createReadStream(process.argv[2])
+    .pipe(csv.parse())
+    .pipe(csv.transform(row => {
+      lineCount++;
+
+      // omit the first four rows
+      if (lineCount <= 4) {
+        return null;
+      }
+
+      var date = row[4];
+      var description = row[6] + " " + row[7];
+
+      // omit the "Balance" entry
+      if (description.indexOf("Balance") === 0) {
+        return null;
+      }
+
+      var amount = row[9];
+
+      var resultRow = [date, description];
+
+      if (row[10] === "-") {
+        resultRow.push("0");
+        resultRow.push(amount);
+      } else {
+        resultRow.push(amount);
+        resultRow.push("0");
+      }
+
+      return resultRow;
+    }))
+    .pipe(csv.stringify())
+    .pipe(process.stdout)
+;

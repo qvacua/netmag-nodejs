@@ -1,0 +1,28 @@
+#!/usr/bin/env node
+
+var util = require("util");
+var fs = require("fs");
+var cheerio = require("cheerio");
+var colors = require("colors");
+var marked = require("marked");
+
+var fileName = process.argv[2];
+var htmlContent = marked(fs.readFileSync(fileName, "utf8"));
+var $ = cheerio.load(util.format('<body>%s</body>', htmlContent));
+
+var countWord = str => str.replace(/\n/g, " ").split(" ").filter(element => element).length;
+
+var wordCount = countWord($("body").text());
+
+var codeLines = 0;
+$("pre").each(function () {
+  var originalCode = $(this).text();
+  var code = originalCode.replace(/^\n/, "").replace(/\n$/, "");
+
+  if (code) {
+    codeLines += code.split("\n").length;
+    wordCount -= countWord(code);
+  }
+});
+
+console.log("%d words (non-code) + %d lines of code = %d total", wordCount, codeLines, wordCount + (codeLines * 10));

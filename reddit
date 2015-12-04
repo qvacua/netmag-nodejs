@@ -1,0 +1,21 @@
+#!/usr/bin/env node
+
+var util = require("util");
+var colors = require("colors");
+var superagent = require("superagent");
+
+var path = ".json";
+var subreddit = process.argv[2];
+if (subreddit) {
+  path = "r/" + subreddit + path;
+}
+
+superagent.get("https://reddit.com/" + path).end((err, res) => {
+  if (err) throw err;
+
+  var posts = res.body.data.children;
+  posts.reverse().forEach((post, index) => {
+    console.log(util.format('%s. %s', posts.length - index, post.data.title).bold);
+    console.log('  -> ' + util.format('%s', post.data.url).gray);
+  });
+});

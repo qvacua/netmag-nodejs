@@ -1,0 +1,14 @@
+#!/usr/bin/env node
+
+var fs = require("fs");
+var path = require("path");
+var gm = require("gm");
+
+var dir = process.argv[2];
+fs.readdirSync(dir).filter(file => path.extname(file) === ".jpg").forEach(file => {
+  var originalPath = path.join(dir, file);
+  console.log(originalPath);
+  var newPath = path.join(dir, path.basename(file, ".jpg") + ".exif_removed.jpg");
+
+  gm(originalPath).noProfile().write(newPath, err => { if (err) throw err; })
+});

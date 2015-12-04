@@ -1,0 +1,10 @@
+﻿"Card number","'12345567890'"
+"Service card number","'98765'"
+"Mr","Tae Won Ha","Account:","TAE_ACCOUNT_NUMBER",
+"Receipt","R.-Date","A.I.D.A. Transaction","R.-Pos.","Date","Billing Date","Description",,"Currency","Amount","+/-","Rate","Billed-Currency","Billed","+/-",
+"-","",Nein,"0","2015-06-17","2015-06-18","Some Store","Muenchen","EUR","23.96","-","1","EUR","23.96","-"
+"-","",Nein,"0","2015-06-14","2015-06-16","Some Gas Station","Muenchen","EUR","47.26","-","1","EUR","47.26","-"
+-,,Nein,0,2015-06-14,2015-06-15,"Some income",Muenchen,EUR,3.88,+,1,EUR,3.88,+,
+"-","",Nein,"0","2015-06-11","2015-06-12","Amazon","Amazon.de LUX","EUR","46.99","-","1","EUR","46.99","-"
+-,,Nein,0,2015-06-09,2015-06-10,"Another income",Muenchen,EUR,34,+,1,EUR,34,+,
+"-","",Nein,"0","2015-06-08","2015-06-08","Balance"," "," ",,"+",,"EUR","1234.56","+"
